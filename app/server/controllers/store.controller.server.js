@@ -1,5 +1,7 @@
 import { getStoreInfo, syncStoreDetails } from "../services/store.service.server";
 import { apiError, apiSuccess } from "../utils/api-response.server";
+
+// Store information controller to handle GET requests for store details
 export async function storeInfoController(shopDomain) {
     try {
         const details = await getStoreInfo(shopDomain);
@@ -12,6 +14,8 @@ export async function storeInfoController(shopDomain) {
         return apiError("Unable to load store information.", 502);
     }
 }
+
+// Store creation controller to handle POST requests for syncing store details
 export async function storeCreateController(admin, shopDomain) {
     try {
         return apiSuccess(await syncStoreDetails(admin, shopDomain), 201);

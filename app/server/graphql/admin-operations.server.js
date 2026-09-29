@@ -1,9 +1,6 @@
 export const STORE_DETAILS_QUERY = `#graphql
   query StoreDetails {
-    shop {
-      accountOwner {
-        name
-      }
+    shop {      
       alerts {
         description
         action {

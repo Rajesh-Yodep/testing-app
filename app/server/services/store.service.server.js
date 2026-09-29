@@ -5,11 +5,14 @@ export async function getStoreInfo(shopDomain) {
         .collection("store_detail")
         .findOne({ _id: shopDomain });
 }
+
+// Sync store details from Shopify and update the database
 export async function syncStoreDetails(admin, shopDomain) {
     const [shopResponse, appPlanResponse] = await Promise.all([
         admin.graphql(STORE_DETAILS_QUERY),
         admin.graphql(STORE_APP_SUBSCRIPTIONS_QUERY).catch(() => null),
     ]);
+    
     const shopResult = (await shopResponse.json());
     if (!shopResult.data?.shop) {
         throw new Error("Unable to load Shopify store details.");
