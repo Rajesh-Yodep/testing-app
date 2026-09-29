@@ -1,4 +1,4 @@
-import { parseCreateProductInput } from "../models/product.model";
+import { productModel } from "../models/product.model";
 import { createProduct } from "../services/product.service.server";
 import { apiError, apiSuccess } from "../utils/api-response.server";
 export async function productCreateController(request, admin) {
@@ -9,8 +9,8 @@ export async function productCreateController(request, admin) {
     catch {
         return apiError("Request body must be valid JSON.", 400);
     }
-    const input = parseCreateProductInput(body);
-    if (!input) {
+    const input = productModel(body);
+    if (!input.title) {
         return apiError("A non-empty product title is required.", 400);
     }
     try {

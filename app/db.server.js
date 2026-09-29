@@ -1,12 +1,17 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import { env } from "./env.server";
-// Reuse one client across dev hot reloads instead of opening a new pool each time.
-const client = global.mongoClientGlobal ?? new MongoClient(env.MONGODB_URI);
-if (!env.isProduction) {
-    global.mongoClientGlobal = client;
+
+export function connectDb() {
+    if (global.mongooseConnectionPromise) {
+        return global.mongooseConnectionPromise;
+    }
+
+    global.mongooseConnectionPromise = mongoose.connect(env.MONGODB_URI, {
+        dbName: env.MONGODB_DB_NAME,
+    }).catch((error) => {
+        delete global.mongooseConnectionPromise;
+        throw error;
+    });
+
+    return global.mongooseConnectionPromise;
 }
-export const mongoClient = client;
-export function getDb() {
-    return client.db(env.MONGODB_DB_NAME);
-}
-export default getDb;

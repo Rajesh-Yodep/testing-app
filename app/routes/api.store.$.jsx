@@ -1,10 +1,12 @@
-import { storeCreateController, storeInfoController, } from "../server/controllers/store.controller.server";
+import { storeCreateController, storeInfoController, storeUpdateController } from "../server/controllers/store.controller.server";
 import { dispatchApiRequest, } from "../server/utils/api-router.server";
 
 //Handle all requests to /api/store/*
 const storeHandlers = {
     "GET info": (_request, _admin, shopDomain) => storeInfoController(shopDomain),
     "POST create": (_request, admin, shopDomain) => storeCreateController(admin, shopDomain),
+    "PUT update": (request, _admin, shopDomain) => storeUpdateController(request, shopDomain),
+
 };
 
 // Log the request method and URL for debugging purposes
