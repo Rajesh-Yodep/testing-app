@@ -37,5 +37,8 @@ export const userValidations = {
         status: Joi.string().valid("active", "inactive").optional(),
         companyId: objectId.required(),
         createdBy : objectId.required(),
+        paymentTerms: Joi.string().allow(null).optional(),
+        paymentTermsId: Joi.string().allow(null).optional(),
+        deposit: Joi.number().min(0).max(100).optional(),
     }).or("country", "countryCode"),
 };

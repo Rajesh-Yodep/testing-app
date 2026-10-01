@@ -64,6 +64,18 @@ const customerSchema = new mongoose.Schema(
             required: true,
             ref: "StoreDetail",
         },
+        paymentTerms: {
+            type: String,
+            default: null,
+        },
+        paymentTermsTemplateId: {
+            type: String,
+            default: null,
+        },
+        depositPercentage: {        
+            type: Number,
+            default: 0,
+        },
         companyId: {
             type: mongoose.Schema.Types.ObjectId,
             default: null
@@ -71,7 +83,7 @@ const customerSchema = new mongoose.Schema(
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
             default: null
-        },
+        },        
     },
     {
         collection: CUSTOMER_COLLECTION,

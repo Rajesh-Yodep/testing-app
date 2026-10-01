@@ -58,8 +58,6 @@ export async function userCreateController(request, admin, shopDomain) {
             return apiError("Request body must be valid JSON.", 400);
         }
 
-        console.log("userCreateController data →", data);
-
         const { error, value } = userValidations.create.validate(data, {
             abortEarly: false,
             stripUnknown: false,

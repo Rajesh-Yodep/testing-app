@@ -251,6 +251,9 @@ export async function saveCustomerToDb(customerResult, data, phoneWithCode, shop
         shopId: shopDomain,
         companyId: companyId || null,
         createdBy: data.createdBy || null,
+        paymentTerms: data.paymentTerms || null,
+        paymentTermsTemplateId: data.paymentTermsId || null,
+        depositPercentage: data.deposit || null,
     });
 }
 
@@ -382,6 +385,13 @@ export async function userLocationCreate(admin, data, companyId) {
                     zoneCode: data.state.trim(),
                     countryCode: data.countryCode,
                     zip: String(data.zip),
+                },
+                buyerExperienceConfiguration: {
+                    checkoutToDraft: true,
+                    paymentTermsTemplateId: "gid://shopify/PaymentTermsTemplate/3",
+                    deposit: {
+                        percentage: 20
+                    }
                 }
             }
         }

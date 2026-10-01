@@ -168,7 +168,10 @@ export const COMPANY_CONTACT_ASSIGN_ROLE = `#graphql
 
 // Create company location
 export const COMPANY_CREATE_LOCATION = `#graphql
-    mutation CompanyLocationCreate($companyId: ID!, $input: CompanyLocationInput!) {
+    mutation CompanyLocationCreate(
+        $companyId: ID!
+        $input: CompanyLocationInput!
+    ) {
         companyLocationCreate(
             companyId: $companyId
             input: $input
@@ -176,6 +179,7 @@ export const COMPANY_CREATE_LOCATION = `#graphql
             companyLocation {
                 id
                 name
+
                 shippingAddress {
                     address1
                     address2
@@ -184,7 +188,28 @@ export const COMPANY_CREATE_LOCATION = `#graphql
                     zip
                     countryCode
                 }
+
+                buyerExperienceConfiguration {
+                    checkoutToDraft
+
+                    paymentTermsTemplate {
+                        id
+                        name
+                        description
+                        dueInDays
+                        paymentTermsType
+                    }
+
+                    deposit {
+                        __typename
+
+                        ... on DepositPercentage {
+                            percentage
+                        }
+                    }
+                }
             }
+
             userErrors {
                 field
                 message
