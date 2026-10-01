@@ -69,6 +69,7 @@ export const STORE_DETAILS_QUERY = `#graphql
     }
   }
 `;
+
 export const STORE_APP_SUBSCRIPTIONS_QUERY = `#graphql
   query StoreAppSubscriptions {
     currentAppInstallation {
@@ -124,6 +125,8 @@ export const CREATE_PRODUCT_MUTATION = `#graphql
     }
   }
 `;
+
+
 export const DEMO_POPULATE_PRODUCT_MUTATION = `#graphql
   mutation populateProduct($product: ProductCreateInput!) {
     productCreate(product: $product) {
