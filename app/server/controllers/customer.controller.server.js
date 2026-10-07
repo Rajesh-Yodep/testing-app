@@ -1,6 +1,6 @@
 import { customerCreateSer, userCreateSer } from "../services/customer.service.server";
 import { apiError, apiSuccess } from "../utils/api-response.server";
-import { customerValidations, userValidations } from "../validations/customer.validation";
+import { customerValidations, userValidations, salesRepValidations } from "../validations/customer.validation";
 
 export async function customerCreateController(request, admin, shopDomain) {
     try {
@@ -92,5 +92,30 @@ export async function userCreateController(request, admin, shopDomain) {
     } catch (err) {
         console.error("Customer Create Error →", err.message);
         return apiError(err.message || "Unable to create customer in Shopify and MongoDB.", 502);
+    }
+}
+
+export async function salesrepCreateController(request, admin, shopDomain) {
+    let data;
+    try {
+        data = await request.json();
+
+        const { error, value } = salesRepValidations.create.validate(data, {
+            abortEarly: false,
+            stripUnknown: false,
+            allowUnknown: false,
+        });
+
+        if (error) {
+            const details = error.details.map(({ message, path }) => ({
+                field: path.join("."),
+                message,
+            }));
+            return apiError("User validation failed.", 400, details);
+        }
+
+
+    } catch {
+        return apiError("Request body must be valid JSON.", 400);
     }
 }

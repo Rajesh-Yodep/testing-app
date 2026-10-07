@@ -1,9 +1,15 @@
-import { shopifyPaymentTermsController } from "../server/controllers/shopify.controller.server";
-import { dispatchApiRequest, } from "../server/utils/api-router.server";
+import {
+    shopifyPaymentTermsController,
+    shopifyProductListController,
+    shopifyProductDetailController,
+} from "../server/controllers/shopify.controller.server";
+import { dispatchApiRequest } from "../server/utils/api-router.server";
 
-//Handle all requests to /api/customer/*
+//Handle all requests to /api/shopify/*
 const shopifyHandlers = {
     "GET payment-terms": (request, admin, shopDomain) => shopifyPaymentTermsController(request, admin, shopDomain),
+    "GET products": (request, admin, shopDomain) => shopifyProductListController(request, admin, shopDomain),
+    "GET product": (request, admin, shopDomain) => shopifyProductDetailController(request, admin, shopDomain),
 };
 
 // Log the request method and URL for debugging purposes

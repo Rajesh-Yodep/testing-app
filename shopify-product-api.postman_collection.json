@@ -1,0 +1,428 @@
+{
+  "info": {
+    "name": "B2B Register App - All APIs",
+    "description": "Full app API collection covering Shopify read APIs, product APIs, customer APIs, and store APIs.\n\nRoutes:\n- /api/shopify/payment-terms\n- /api/shopify/products\n- /api/shopify/product\n- /api/product/create\n- /api/product/update\n- /api/product/delete\n- /api/product/assign-collection\n- /api/product/remove-collection\n- /api/product/publish\n- /api/product/unpublish\n- /api/customer/create\n- /api/customer/user-create\n- /api/customer/salesrep-create\n- /api/store/info\n- /api/store/create\n- /api/store/update\n\nNote: Shopify ProductCreateInput does not accept direct options, variants, images, or collectionIds. Use separate collection/media attach operations.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "b2b-register-app-all-apis"
+  },
+  "item": [
+    {
+      "name": "01. Shopify Read APIs",
+      "item": [
+        {
+          "name": "Shopify - Get payment terms",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shopify/payment-terms?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shopify", "payment-terms"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Shopify - Get products list",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shopify/products?shop={{shop}}&first=10&sortKey=CREATED_AT&reverse=false",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shopify", "products"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" },
+                { "key": "first", "value": "10" },
+                { "key": "sortKey", "value": "CREATED_AT" },
+                { "key": "reverse", "value": "false" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Shopify - Get product detail by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shopify/product?shop={{shop}}&id={{productId}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shopify", "product"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" },
+                { "key": "id", "value": "{{productId}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Shopify - Get product detail by handle",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shopify/product?shop={{shop}}&handle={{productHandle}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shopify", "product"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" },
+                { "key": "handle", "value": "{{productHandle}}" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02. Product APIs",
+      "item": [
+        {
+          "name": "Product - Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Demo Product\",\n  \"bodyHtml\": \"<p>Demo product description</p>\",\n  \"vendor\": \"My Brand\",\n  \"productType\": \"Apparel\",\n  \"status\": \"DRAFT\",\n  \"tags\": \"demo,shopify\",\n  \"handle\": \"demo-product\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/create?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "create"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Product - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{productId}}\",\n  \"title\": \"Updated Demo Product\",\n  \"vendor\": \"Updated Brand\",\n  \"productType\": \"Accessories\",\n  \"status\": \"ACTIVE\",\n  \"tags\": \"updated,demo\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/update?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "update"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Product - Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{productId}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/delete?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "delete"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Product - Publish",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{productId}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/publish?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "publish"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Product - Unpublish",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{productId}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/unpublish?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "unpublish"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Product - Assign collection",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"{{productId}}\",\n  \"collectionIds\": [\"{{collectionId}}\"]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/assign-collection?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "assign-collection"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Product - Remove collection",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"{{productId}}\",\n  \"collectionIds\": [\"{{collectionId}}\"]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/remove-collection?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "product", "remove-collection"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03. Customer APIs",
+      "item": [
+        {
+          "name": "Customer - Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"phone\": 5551234567,\n  \"address1\": \"123 Main St\",\n  \"address2\": \"Apt 4\",\n  \"city\": \"New York\",\n  \"state\": \"NY\",\n  \"country\": \"US\",\n  \"zip\": 10001,\n  \"companyName\": \"Example Co\",\n  \"role\": \"main\",\n  \"status\": \"active\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/create?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "create"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Customer - User Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"email\": \"jane@example.com\",\n  \"phone\": 5559876543,\n  \"address1\": \"45 Park Ave\",\n  \"city\": \"Los Angeles\",\n  \"state\": \"CA\",\n  \"country\": \"US\",\n  \"zip\": 90001,\n  \"companyId\": \"{{companyId}}\",\n  \"createdBy\": \"{{createdById}}\",\n  \"role\": \"user\",\n  \"status\": \"active\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/user-create?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "user-create"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Customer - Salesrep Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Alex\",\n  \"lastName\": \"Brown\",\n  \"email\": \"alex@example.com\",\n  \"phone\": 5551112222,\n  \"address1\": \"77 Market St\",\n  \"city\": \"Chicago\",\n  \"state\": \"IL\",\n  \"country\": \"US\",\n  \"zip\": 60601,\n  \"companyId\": \"{{companyId}}\",\n  \"createdBy\": \"{{createdById}}\",\n  \"role\": \"sales\",\n  \"status\": \"active\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/salesrep-create?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "salesrep-create"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04. Store APIs",
+      "item": [
+        {
+          "name": "Store - Get info",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/store/info?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "store", "info"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Store - Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/store/create?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "store", "create"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Store - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{apiToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storeName\": \"Updated Store Name\",\n  \"currency\": \"INR\",\n  \"timezone\": \"Asia/Kolkata\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/store/update?shop={{shop}}",
+              "protocol": "http",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "store", "update"],
+              "query": [
+                { "key": "shop", "value": "{{shop}}" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000", "type": "default" },
+    { "key": "shop", "value": "your-store.myshopify.com", "type": "default" },
+    { "key": "apiToken", "value": "your_api_test_token_here", "type": "secret" },
+    { "key": "productId", "value": "gid://shopify/Product/1234567890", "type": "default" },
+    { "key": "collectionId", "value": "gid://shopify/Collection/123456789", "type": "default" },
+    { "key": "productHandle", "value": "demo-product", "type": "default" },
+    { "key": "companyId", "value": "507f1f77bcf86cd799439011", "type": "default" },
+    { "key": "createdById", "value": "507f1f77bcf86cd799439012", "type": "default" }
+  ]
+}
